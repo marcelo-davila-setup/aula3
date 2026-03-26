@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,63 +9,139 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --navy:#0a1628;--navy2:#0d2145;--navy3:#102558;
-  --blue:#1a56db;--blue2:#3b82f6;--sky:#93c5fd;
-  --gold:#f59e0b;--gold2:#fde68a;
-  --green:#10b981;--white:#fff;--ice:#dbeafe;
-  --muted:rgba(147,197,253,0.45);
+  --bg:       #F5F0E8;
+  --bg2:      #EDE7DA;
+  --bg3:      #E4DDD0;
+  --card:     #FAF7F2;
+  --ink:      #1C1610;
+  --ink2:     #3D3529;
+  --ink3:     #6B5E4E;
+  --gold:     #B8860B;
+  --gold2:    #D4A017;
+  --gold-lt:  #F5E6C0;
+  --rust:     #8B4513;
+  --blue:     #1A3A6B;
+  --blue-lt:  #D6E4F0;
+  --green:    #2D6A4F;
+  --green-lt: #D4EDD9;
+  --border:   rgba(139,107,66,0.18);
+  --muted:    #9C8B77;
+  --shadow:   0 2px 24px rgba(28,22,16,0.08);
 }
+
 html{scroll-behavior:smooth;}
-body{background:var(--navy);color:var(--white);font-family:'Libre Franklin',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Libre Franklin',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+  cursor:none;
+}
 
 /* CURSOR */
-#cur{position:fixed;width:9px;height:9px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;}
-#cur2{position:fixed;width:32px;height:32px;border:1px solid rgba(245,158,11,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .16s ease;}
+#cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#cur2{position:fixed;width:28px;height:28px;border:1px solid rgba(184,134,11,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .16s ease;}
 
-/* GRAIN */
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.022;pointer-events:none;z-index:9990;}
+/* GRAIN texture */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.028;pointer-events:none;z-index:9990;}
 
 /* ===== GATE ===== */
-#gate{position:fixed;inset:0;background:var(--navy);z-index:8000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;}
-.g-spark{font-size:.85rem;letter-spacing:.35em;color:var(--gold);font-weight:700;margin-bottom:2.5rem;text-shadow:0 0 20px rgba(245,158,11,.4);}
-.g-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.8rem);font-weight:300;text-align:center;line-height:1.25;margin-bottom:.6rem;}
+#gate{
+  position:fixed;inset:0;background:var(--bg);z-index:8000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;
+  transition:opacity .6s,transform .6s;
+}
+#gate.saindo{opacity:0;transform:scale(.97);pointer-events:none;}
+.g-spark{font-size:.72rem;letter-spacing:.38em;color:var(--gold);font-weight:700;margin-bottom:2.5rem;text-transform:uppercase;}
+.g-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:300;text-align:center;line-height:1.25;margin-bottom:.6rem;color:var(--ink);}
 .g-title em{color:var(--gold);font-style:italic;}
-.g-sub{color:var(--sky);font-size:.9rem;text-align:center;max-width:360px;line-height:1.9;margin-bottom:2.5rem;}
-#nameIn{width:100%;max-width:380px;background:rgba(255,255,255,.05);border:1px solid rgba(147,197,253,.25);border-radius:3px;color:var(--white);font-family:'Libre Franklin',sans-serif;font-size:1rem;padding:.9rem 1.3rem;outline:none;transition:border .25s;margin-bottom:.9rem;}
-#nameIn:focus{border-color:var(--gold);}
+.g-sub{color:var(--ink3);font-size:.9rem;text-align:center;max-width:360px;line-height:1.9;margin-bottom:2.5rem;}
+#nameIn{
+  width:100%;max-width:380px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:4px;
+  color:var(--ink);
+  font-family:'Libre Franklin',sans-serif;font-size:1rem;
+  padding:.9rem 1.3rem;outline:none;transition:border .25s,box-shadow .25s;
+  margin-bottom:.9rem;
+}
+#nameIn:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,134,11,.12);}
 #nameIn::placeholder{color:var(--muted);}
-#enterBtn{width:100%;max-width:380px;background:var(--gold);color:var(--navy);border:none;border-radius:3px;font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.18em;padding:1rem;cursor:pointer;transition:opacity .2s;}
-#enterBtn:hover{opacity:.85;}
-.g-note{margin-top:1.2rem;font-size:.65rem;color:var(--muted);text-align:center;max-width:320px;line-height:1.8;}
+#enterBtn{
+  width:100%;max-width:380px;
+  background:var(--ink);color:var(--bg);
+  border:none;border-radius:4px;
+  font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:.78rem;
+  letter-spacing:.2em;padding:1rem;cursor:pointer;
+  transition:background .2s,transform .15s;
+}
+#enterBtn:hover{background:var(--gold);color:var(--ink);transform:translateY(-1px);}
+.g-note{margin-top:1.2rem;font-size:.64rem;color:var(--muted);text-align:center;max-width:320px;line-height:1.8;}
 
 /* ===== TOPBAR ===== */
-#topbar{position:fixed;top:0;left:0;right:0;z-index:7000;background:rgba(10,22,40,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(26,86,219,.18);padding:.55rem 2rem;display:none;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem;}
-#tb-name{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold);}
-#tb-meta{font-size:.62rem;letter-spacing:.08em;color:var(--muted);}
-#tb-weather{font-size:.7rem;color:var(--sky);letter-spacing:.05em;}
+#topbar{
+  position:fixed;top:0;left:0;right:0;z-index:7000;
+  background:rgba(245,240,232,.96);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  padding:.55rem 2rem;
+  display:none;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem;
+}
+#tb-name{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold);font-style:italic;}
+#tb-meta{font-size:.6rem;letter-spacing:.07em;color:var(--muted);}
+#tb-weather{font-size:.68rem;color:var(--ink3);letter-spacing:.04em;}
 
 /* ===== HERO ===== */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:7rem 10vw 4rem;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;top:-25%;right:-12%;width:65vw;height:65vw;border-radius:50%;border:1px solid rgba(26,86,219,.13);animation:breathe 9s ease-in-out infinite;}
-.hero::after{content:'';position:absolute;top:-5%;right:8%;width:42vw;height:42vw;border-radius:50%;border:1px solid rgba(245,158,11,.09);animation:breathe 9s ease-in-out infinite reverse;}
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:7rem 10vw 4rem;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-20%;right:-10%;
+  width:60vw;height:60vw;border-radius:50%;
+  border:1px solid rgba(184,134,11,.12);
+  animation:breathe 10s ease-in-out infinite;
+}
+.hero::after{
+  content:'';position:absolute;top:0;right:8%;
+  width:38vw;height:38vw;border-radius:50%;
+  border:1px solid rgba(139,107,66,.08);
+  animation:breathe 10s ease-in-out infinite reverse;
+}
 @keyframes breathe{0%,100%{transform:scale(1);opacity:.5;}50%{transform:scale(1.05);opacity:1;}}
 
-.hero-tag{font-size:.9rem;font-weight:700;letter-spacing:.32em;color:var(--gold);margin-bottom:1.8rem;text-shadow:0 0 24px rgba(245,158,11,.5);}
-.hero-day{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,9vw,8rem);font-weight:300;line-height:.95;margin-bottom:1.5rem;position:relative;}
+.hero-tag{font-size:.72rem;font-weight:700;letter-spacing:.3em;color:var(--gold);margin-bottom:1.8rem;text-transform:uppercase;}
+.hero-day{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,8vw,7.5rem);font-weight:300;line-height:.95;margin-bottom:1.5rem;}
 .hero-day em{font-style:italic;color:var(--gold);}
-.hero-day .day-num{font-size:clamp(1rem,2vw,1.4rem);color:var(--muted);display:block;font-weight:300;letter-spacing:.1em;margin-bottom:.3rem;}
-.hero-greeting{font-size:1.05rem;color:var(--sky);max-width:560px;line-height:2;margin-bottom:.5rem;}
+.hero-day .day-num{font-size:clamp(.9rem,1.8vw,1.2rem);color:var(--muted);display:block;font-weight:300;letter-spacing:.1em;margin-bottom:.3rem;}
+.hero-greeting{font-size:1.05rem;color:var(--ink2);max-width:580px;line-height:2;margin-bottom:.5rem;}
 .hero-greeting .name-g{color:var(--gold);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;}
-.hero-quote{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-style:italic;color:var(--white);border-left:2px solid var(--gold);padding-left:1.2rem;max-width:520px;line-height:1.7;margin:1.5rem 0;}
+.hero-quote{
+  font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-style:italic;
+  color:var(--ink);border-left:2px solid var(--gold);
+  padding-left:1.2rem;max-width:520px;line-height:1.7;margin:1.5rem 0;
+  background:var(--gold-lt);padding:1.2rem 1.4rem;border-radius:0 4px 4px 0;
+}
 
 /* TTS BAR */
-.tts-bar{display:inline-flex;align-items:center;gap:.7rem;padding:.7rem 1.2rem;background:rgba(26,86,219,.1);border:1px solid rgba(26,86,219,.2);border-radius:3px;margin-top:1.5rem;}
-.tts-btn{background:var(--gold);border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:opacity .2s;flex-shrink:0;}
-.tts-btn:hover{opacity:.8;}
-.tts-btn.stop{background:rgba(239,68,68,.8);}
-.tts-lbl{font-size:.65rem;letter-spacing:.18em;color:var(--sky);font-weight:600;}
+.tts-bar{
+  display:inline-flex;align-items:center;gap:.7rem;
+  padding:.7rem 1.2rem;
+  background:var(--card);border:1px solid var(--border);border-radius:4px;
+  margin-top:1.5rem;box-shadow:var(--shadow);
+}
+.tts-btn{
+  background:var(--ink);border:none;border-radius:50%;
+  width:34px;height:34px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;color:var(--bg);transition:background .2s,transform .15s;flex-shrink:0;
+}
+.tts-btn:hover{background:var(--gold);transform:scale(1.08);}
+.tts-btn.stop{background:rgba(139,69,19,.7);}
+.tts-lbl{font-size:.62rem;letter-spacing:.18em;color:var(--ink3);font-weight:600;}
 .wave{display:flex;gap:2px;align-items:center;margin-left:.5rem;}
-.wave span{display:block;width:3px;background:var(--gold);border-radius:2px;height:6px;}
+.wave span{display:block;width:3px;background:var(--gold);border-radius:2px;height:5px;}
 .wave.on span:nth-child(1){animation:wv .7s .00s ease-in-out infinite alternate;}
 .wave.on span:nth-child(2){animation:wv .7s .12s ease-in-out infinite alternate;}
 .wave.on span:nth-child(3){animation:wv .7s .24s ease-in-out infinite alternate;}
@@ -72,96 +149,180 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 @keyframes wv{from{height:4px;}to{height:16px;}}
 
 /* ===== PROGRESS WEEK ===== */
-.week-section{padding:5rem 10vw;border-top:1px solid rgba(26,86,219,.12);opacity:0;transform:translateY(36px);transition:opacity .9s,transform .9s;}
+.week-section{
+  padding:5rem 10vw;border-top:1px solid var(--border);
+  opacity:0;transform:translateY(36px);transition:opacity .9s,transform .9s;
+}
 .week-section.vis{opacity:1;transform:translateY(0);}
-.sec-tag{font-size:.62rem;letter-spacing:.32em;color:var(--gold);font-weight:700;margin-bottom:2.5rem;}
-.week-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;margin-bottom:3rem;}
+.sec-tag{font-size:.62rem;letter-spacing:.32em;color:var(--gold);font-weight:700;margin-bottom:2.5rem;text-transform:uppercase;}
+.week-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;margin-bottom:3rem;color:var(--ink);}
 .week-title em{color:var(--gold);font-style:italic;}
 .timeline{display:flex;gap:0;align-items:stretch;flex-wrap:wrap;}
-.tl-item{flex:1;min-width:160px;padding:1.5rem;border-left:1px solid rgba(26,86,219,.2);position:relative;}
+.tl-item{flex:1;min-width:160px;padding:1.5rem;border-left:1px solid var(--border);position:relative;}
 .tl-item:first-child{border-left:none;}
-.tl-dot{width:10px;height:10px;border-radius:50%;background:rgba(26,86,219,.3);margin-bottom:1rem;position:relative;}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:rgba(139,107,66,.2);margin-bottom:1rem;}
 .tl-item.done .tl-dot{background:var(--green);}
-.tl-item.active .tl-dot{background:var(--gold);box-shadow:0 0 12px var(--gold);}
-.tl-item.done .tl-dot::after{content:'✓';position:absolute;top:-8px;left:14px;font-size:.7rem;color:var(--green);}
-.tl-label{font-size:.65rem;letter-spacing:.2em;color:var(--muted);font-weight:600;margin-bottom:.4rem;}
-.tl-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--white);}
-.tl-item.done .tl-name{color:var(--sky);}
+.tl-item.active .tl-dot{background:var(--gold);box-shadow:0 0 10px rgba(184,134,11,.4);}
+.tl-item.done .tl-dot::after{content:'✓';position:absolute;top:1.3rem;left:calc(1.5rem + 14px);font-size:.7rem;color:var(--green);}
+.tl-label{font-size:.62rem;letter-spacing:.2em;color:var(--muted);font-weight:600;margin-bottom:.4rem;}
+.tl-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--ink2);}
+.tl-item.done .tl-name{color:var(--ink3);}
 .tl-item.active .tl-name{color:var(--gold);}
 
 /* ===== ANALOGIAS ===== */
 .analogias{padding:0 10vw;}
-.analogia{min-height:90vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:7vw;padding:7rem 0;border-top:1px solid rgba(26,86,219,.1);opacity:0;transform:translateY(36px);transition:opacity .9s,transform .9s;}
+.analogia{
+  min-height:88vh;display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:7vw;padding:7rem 0;
+  border-top:1px solid var(--border);
+  opacity:0;transform:translateY(36px);transition:opacity .9s,transform .9s;
+}
 .analogia.vis{opacity:1;transform:translateY(0);}
 .analogia:nth-child(even){direction:rtl;}
 .analogia:nth-child(even)>*{direction:ltr;}
+
+/* Símbolo central — premium bege */
 .sym-wrap{position:relative;width:260px;height:260px;}
-.sym-ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(26,86,219,.18);animation:spin 22s linear infinite;}
-.sym-ring2{position:absolute;inset:18px;border-radius:50%;border:1px solid rgba(245,158,11,.12);animation:spin 15s linear infinite reverse;}
-.sym-core{position:absolute;inset:38px;border-radius:50%;background:var(--navy2);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:.4rem;}
+.sym-ring{
+  position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(184,134,11,.2);
+  animation:spin 22s linear infinite;
+}
+.sym-ring2{
+  position:absolute;inset:18px;border-radius:50%;
+  border:1px solid rgba(139,107,66,.12);
+  animation:spin 15s linear infinite reverse;
+}
+.sym-core{
+  position:absolute;inset:38px;border-radius:50%;
+  background:var(--card);
+  border:1px solid var(--border);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:.4rem;
+  box-shadow:var(--shadow);
+}
 .sym-dot{position:absolute;width:7px;height:7px;background:var(--gold);border-radius:50%;top:3px;left:50%;transform:translateX(-50%);}
 @keyframes spin{to{transform:rotate(360deg);}}
-.sym-emoji{font-size:3.2rem;filter:drop-shadow(0 0 18px rgba(26,86,219,.5));}
+.sym-emoji{font-size:3.2rem;filter:drop-shadow(0 2px 8px rgba(184,134,11,.25));}
 .sym-num{font-family:'Cormorant Garamond',serif;font-size:.7rem;font-weight:600;letter-spacing:.3em;color:var(--gold);}
-.an-num{font-family:'Cormorant Garamond',serif;font-size:5.5rem;font-weight:300;color:rgba(26,86,219,.12);line-height:1;margin-bottom:-1.3rem;}
-.an-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:600;line-height:1.2;margin-bottom:1.8rem;}
+
+.an-num{font-family:'Cormorant Garamond',serif;font-size:5.5rem;font-weight:300;color:rgba(184,134,11,.09);line-height:1;margin-bottom:-1.3rem;}
+.an-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:600;line-height:1.2;margin-bottom:1.8rem;color:var(--ink);}
 .an-title .hl{color:var(--gold);font-style:italic;}
-.an-text{font-size:1rem;line-height:2;color:var(--ice);margin-bottom:1.8rem;}
-.an-text strong{color:var(--white);font-weight:600;}
-.an-punch{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:var(--sky);border-left:2px solid var(--gold);padding-left:1.3rem;line-height:1.6;}
+.an-text{font-size:1rem;line-height:2.1;color:var(--ink3);margin-bottom:1.8rem;}
+.an-text strong{color:var(--ink);font-weight:600;}
+.an-punch{
+  font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;
+  color:var(--ink2);border-left:2px solid var(--gold);
+  padding:.8rem 1.3rem;line-height:1.6;
+  background:var(--gold-lt);border-radius:0 4px 4px 0;
+}
 
 /* ===== EXERCICIO ===== */
-.exercicio{padding:6rem 10vw;border-top:1px solid rgba(245,158,11,.15);background:linear-gradient(180deg,rgba(13,33,69,.4) 0%,transparent 100%);opacity:0;transform:translateY(36px);transition:opacity .9s,transform .9s;}
+.exercicio{
+  padding:6rem 10vw;border-top:1px solid rgba(184,134,11,.2);
+  background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%);
+  opacity:0;transform:translateY(36px);transition:opacity .9s,transform .9s;
+}
 .exercicio.vis{opacity:1;transform:translateY(0);}
 .ex-header{text-align:center;margin-bottom:4rem;}
-.ex-tag{font-size:.62rem;letter-spacing:.35em;color:var(--gold);font-weight:700;margin-bottom:1.5rem;}
-.ex-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:1.2;}
+.ex-tag{font-size:.62rem;letter-spacing:.35em;color:var(--gold);font-weight:700;margin-bottom:1.5rem;text-transform:uppercase;}
+.ex-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:1.2;color:var(--ink);}
 .ex-title em{color:var(--gold);font-style:italic;}
-.ex-sub{color:var(--sky);font-size:.95rem;max-width:500px;margin:.8rem auto 0;line-height:1.9;}
+.ex-sub{color:var(--ink3);font-size:.95rem;max-width:500px;margin:.8rem auto 0;line-height:1.9;}
 .ex-timer{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--gold);text-align:center;margin:2rem 0;letter-spacing:.1em;}
 
 .ex-cards{display:flex;flex-direction:column;gap:2.5rem;max-width:760px;margin:0 auto;}
-.ex-card{background:rgba(13,33,69,.6);border:1px solid rgba(26,86,219,.2);border-radius:4px;padding:2rem 2.5rem;position:relative;overflow:hidden;}
+.ex-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:6px;padding:2rem 2.5rem;
+  position:relative;overflow:hidden;
+  box-shadow:var(--shadow);
+}
 .ex-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold);}
-.ex-card-num{font-family:'Cormorant Garamond',serif;font-size:.7rem;font-weight:600;letter-spacing:.3em;color:var(--gold);margin-bottom:.8rem;}
-.ex-card-q{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;font-style:italic;color:var(--white);line-height:1.5;margin-bottom:1.2rem;}
+.ex-card-num{font-family:'Cormorant Garamond',serif;font-size:.7rem;font-weight:600;letter-spacing:.3em;color:var(--gold);margin-bottom:.8rem;text-transform:uppercase;}
+.ex-card-q{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:1.2rem;}
 .ex-card-hint{font-size:.8rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.7;}
-.ex-textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(147,197,253,.15);border-radius:3px;color:var(--white);font-family:'Libre Franklin',sans-serif;font-size:.95rem;font-weight:300;padding:1rem 1.2rem;min-height:100px;outline:none;resize:vertical;transition:border .25s;line-height:1.8;}
-.ex-textarea:focus{border-color:rgba(245,158,11,.5);}
-.ex-textarea::placeholder{color:rgba(147,197,253,.3);}
+.ex-textarea{
+  width:100%;background:var(--bg);border:1px solid var(--border);
+  border-radius:4px;color:var(--ink);
+  font-family:'Libre Franklin',sans-serif;font-size:.95rem;font-weight:300;
+  padding:1rem 1.2rem;min-height:100px;outline:none;resize:vertical;
+  transition:border .25s;line-height:1.8;
+}
+.ex-textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,134,11,.08);}
+.ex-textarea::placeholder{color:var(--muted);}
 .ex-actions{display:flex;gap:.8rem;margin-top:1rem;flex-wrap:wrap;}
-.btn-voz{background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:.72rem;letter-spacing:.15em;padding:.6rem 1.2rem;border-radius:3px;cursor:pointer;transition:all .2s;}
-.btn-voz:hover{background:var(--gold);color:var(--navy);}
-.btn-clear{background:transparent;border:1px solid rgba(147,197,253,.2);color:var(--muted);font-family:'Libre Franklin',sans-serif;font-size:.72rem;letter-spacing:.1em;padding:.6rem 1rem;border-radius:3px;cursor:pointer;transition:all .2s;}
-.btn-clear:hover{border-color:rgba(239,68,68,.4);color:rgba(239,68,68,.7);}
+.btn-voz{
+  background:transparent;border:1px solid var(--gold);color:var(--gold);
+  font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:.7rem;
+  letter-spacing:.14em;padding:.6rem 1.2rem;border-radius:3px;cursor:pointer;
+  transition:all .2s;text-transform:uppercase;
+}
+.btn-voz:hover{background:var(--gold);color:var(--ink);}
+.btn-clear{
+  background:transparent;border:1px solid rgba(139,107,66,.2);color:var(--muted);
+  font-family:'Libre Franklin',sans-serif;font-size:.7rem;
+  letter-spacing:.1em;padding:.6rem 1rem;border-radius:3px;cursor:pointer;
+  transition:all .2s;
+}
+.btn-clear:hover{border-color:rgba(139,69,19,.4);color:var(--rust);}
 
-.ex-start-btn{display:block;margin:2rem auto 0;background:var(--gold);color:var(--navy);border:none;font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.2em;padding:1.1rem 3rem;border-radius:3px;cursor:pointer;transition:opacity .2s;}
-.ex-start-btn:hover{opacity:.85;}
+.ex-start-btn{
+  display:block;margin:2rem auto 0;
+  background:var(--ink);color:var(--bg);border:none;
+  font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:.78rem;
+  letter-spacing:.2em;padding:1.1rem 3rem;border-radius:4px;cursor:pointer;
+  transition:background .2s,transform .15s;text-transform:uppercase;
+}
+.ex-start-btn:hover{background:var(--gold);color:var(--ink);transform:translateY(-2px);}
 
 /* ===== FECHAMENTO ===== */
-.fechamento{min-height:80vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 10vw;position:relative;overflow:hidden;opacity:0;transform:translateY(36px);transition:opacity .9s,transform .9s;}
+.fechamento{
+  min-height:80vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;text-align:center;
+  padding:6rem 10vw;position:relative;overflow:hidden;
+  opacity:0;transform:translateY(36px);transition:opacity .9s,transform .9s;
+  background:var(--ink);color:var(--bg);
+}
 .fechamento.vis{opacity:1;transform:translateY(0);}
-.fechamento::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(26,86,219,.07) 0%,transparent 65%);}
-.fec-tag{font-size:.62rem;letter-spacing:.35em;color:var(--gold);font-weight:700;margin-bottom:2.5rem;}
-.fec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,4.2rem);font-weight:300;line-height:1.2;max-width:800px;margin-bottom:1rem;}
+.fechamento::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(184,134,11,.08) 0%,transparent 65%);}
+.fec-tag{font-size:.62rem;letter-spacing:.35em;color:var(--gold);font-weight:700;margin-bottom:2.5rem;text-transform:uppercase;}
+.fec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,4.2rem);font-weight:300;line-height:1.2;max-width:800px;margin-bottom:1rem;color:var(--bg);}
 .fec-title em{color:var(--gold);font-style:italic;}
 .fec-divider{width:1px;height:55px;background:linear-gradient(to bottom,var(--gold),transparent);margin:2.5rem auto;}
-.fec-body{max-width:560px;font-size:1rem;line-height:2.1;color:var(--ice);margin-bottom:2.5rem;}
-.fec-body strong{color:var(--white);font-weight:600;}
-.fec-final{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-style:italic;color:var(--white);margin-bottom:1.5rem;}
+.fec-body{max-width:560px;font-size:1rem;line-height:2.1;color:rgba(245,240,232,.75);margin-bottom:2.5rem;}
+.fec-body strong{color:var(--bg);font-weight:600;}
+.fec-final{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-style:italic;color:var(--gold);margin-bottom:1.5rem;}
 .fec-line{width:70px;height:1px;background:var(--gold);margin:0 auto 1.2rem;}
-.fec-spark{font-size:.85rem;letter-spacing:.28em;color:var(--gold);font-weight:700;opacity:.8;}
+.fec-spark{font-size:.82rem;letter-spacing:.28em;color:rgba(245,240,232,.4);font-weight:700;text-transform:uppercase;}
 
 /* ===== DOWNLOAD ===== */
-.dl-section{padding:4rem 10vw;display:flex;flex-direction:column;align-items:center;gap:1.2rem;border-top:1px solid rgba(26,86,219,.12);}
-.dl-tag{font-size:.62rem;letter-spacing:.3em;color:var(--gold);font-weight:700;}
-.dl-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;text-align:center;}
+.dl-section{
+  padding:4rem 10vw;display:flex;flex-direction:column;align-items:center;gap:1.2rem;
+  border-top:1px solid var(--border);background:var(--bg2);
+}
+.dl-tag{font-size:.62rem;letter-spacing:.3em;color:var(--gold);font-weight:700;text-transform:uppercase;}
+.dl-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;text-align:center;color:var(--ink);}
 .dl-title em{color:var(--gold);font-style:italic;}
-.dl-btn{display:flex;align-items:center;gap:.7rem;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.2em;padding:.9rem 2.2rem;border-radius:3px;cursor:pointer;transition:all .3s;margin-top:.4rem;}
-.dl-btn:hover{background:var(--gold);color:var(--navy);}
+.dl-btn{
+  display:flex;align-items:center;gap:.7rem;
+  background:transparent;border:1px solid var(--ink);color:var(--ink);
+  font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:.74rem;
+  letter-spacing:.2em;padding:.9rem 2.2rem;border-radius:4px;cursor:pointer;
+  transition:all .3s;text-transform:uppercase;
+}
+.dl-btn:hover{background:var(--ink);color:var(--bg);}
 
 /* FOOTER */
-footer{border-top:1px solid rgba(26,86,219,.12);padding:1.8rem 10vw;display:flex;justify-content:space-between;align-items:center;font-size:.65rem;letter-spacing:.18em;color:var(--muted);flex-wrap:wrap;gap:.5rem;}
+footer{
+  border-top:1px solid var(--border);
+  padding:1.8rem 10vw;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.63rem;letter-spacing:.17em;color:var(--muted);
+  flex-wrap:wrap;gap:.5rem;background:var(--bg);
+  text-transform:uppercase;
+}
 
 @media(max-width:768px){
   .analogia{grid-template-columns:1fr;direction:ltr!important;gap:2.5rem;}
@@ -181,11 +342,11 @@ footer{border-top:1px solid rgba(26,86,219,.12);padding:1.8rem 10vw;display:flex
 
 <!-- ===== GATE ===== -->
 <div id="gate">
-  <p class="g-spark">PROTOCOLO AGENDA CHEIA &nbsp;·&nbsp; MÓDULO 1</p>
-  <h2 class="g-title">Sexta-feira,<br><em>você chegou até aqui.</em></h2>
+  <p class="g-spark">Protocolo Agenda Cheia &nbsp;·&nbsp; Módulo 1</p>
+  <h2 class="g-title"><span id="gateDia">...</span>,<br><em>você chegou até aqui.</em></h2>
   <p class="g-sub">Antes de fechar o computador — tem algo importante esperando por você.</p>
   <input type="text" id="nameIn" placeholder="Seu primeiro nome..." maxlength="40" autocomplete="given-name"/>
-  <button id="enterBtn">ENTRAR →</button>
+  <button id="enterBtn">Entrar →</button>
   <p class="g-note">Coletamos nome e localização apenas para personalizar sua experiência nesta página.</p>
 </div>
 
@@ -198,83 +359,51 @@ footer{border-top:1px solid rgba(26,86,219,.12);padding:1.8rem 10vw;display:flex
 
 <!-- ===== HERO ===== -->
 <section class="hero">
-  <p class="hero-tag">PROTOCOLO AGENDA CHEIA &nbsp;·&nbsp; MÓDULO 1 &nbsp;·&nbsp; SEXTA-FEIRA</p>
+  <p class="hero-tag" id="heroTag">Protocolo Agenda Cheia &nbsp;·&nbsp; Módulo 1</p>
   <h1 class="hero-day">
     <span class="day-num" id="heroDate"></span>
-    <em>Sexta-feira.</em>
+    <em id="heroDiaSemana">...</em>
   </h1>
   <p class="hero-greeting" id="heroGreeting">Carregando sua experiência...</p>
   <blockquote class="hero-quote" id="heroQuote">Carregando frase do dia...</blockquote>
   <div class="tts-bar">
     <button class="tts-btn" onclick="speak('hero')" title="Ouvir">▶</button>
     <button class="tts-btn stop" onclick="stopSpeak()" title="Parar">■</button>
-    <span class="tts-lbl">OUVIR BOAS-VINDAS</span>
+    <span class="tts-lbl">Ouvir boas-vindas</span>
     <div class="wave" id="w-hero"><span></span><span></span><span></span><span></span></div>
-  </div>
-</section>
-
-<!-- ===== SEMANA ===== -->
-<section class="week-section" data-obs>
-  <p class="sec-tag">SUA SEMANA NA MENTORIA</p>
-  <h2 class="week-title">Você <em>construiu</em> isso essa semana.</h2>
-  <div class="timeline">
-    <div class="tl-item done">
-      <div class="tl-dot"></div>
-      <div class="tl-label">AULA 1</div>
-      <div class="tl-name">Fundamentos & Mentalidade</div>
-    </div>
-    <div class="tl-item done">
-      <div class="tl-dot"></div>
-      <div class="tl-label">AULA 2</div>
-      <div class="tl-name">Expectativas</div>
-    </div>
-    <div class="tl-item active">
-      <div class="tl-dot"></div>
-      <div class="tl-label">AGORA</div>
-      <div class="tl-name" id="tlNow">Exercício Final</div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-label">SEGUNDA-FEIRA</div>
-      <div class="tl-name">Estratégia & Posicionamento</div>
-    </div>
-  </div>
-  <div class="tts-bar" style="margin-top:2.5rem;">
-    <button class="tts-btn" onclick="speak('semana')" title="Ouvir">▶</button>
-    <button class="tts-btn stop" onclick="stopSpeak()">■</button>
-    <span class="tts-lbl">OUVIR RESUMO DA SEMANA</span>
-    <div class="wave" id="w-semana"><span></span><span></span><span></span><span></span></div>
   </div>
 </section>
 
 <!-- ===== ANALOGIAS ===== -->
 <section class="analogias">
 
+  <!-- ANALOGIA 1: O ARQUITETO -->
   <div class="analogia" data-obs>
     <div style="display:flex;justify-content:center;align-items:center;">
       <div class="sym-wrap">
         <div class="sym-ring"><div class="sym-dot"></div></div>
         <div class="sym-ring2"></div>
         <div class="sym-core">
-          <div class="sym-emoji">🚗</div>
+          <div class="sym-emoji">🏛️</div>
           <div class="sym-num">01</div>
         </div>
       </div>
     </div>
     <div>
       <div class="an-num">01</div>
-      <h2 class="an-title">O carro que nunca<br>saiu da <span class="hl">garagem</span></h2>
-      <p class="an-text">Você tem o melhor carro do mundo. Motor potente, GPS, banco de couro — tudo. Mas não coloca gasolina. Gira a chave. <strong>Nada.</strong> E começa a achar que o carro é ruim. Que não era pra você.<br><br>O problema nunca foi o carro. Era só a gasolina. <strong>Expectativa é o carro. Ação é a gasolina.</strong></p>
-      <p class="an-punch" id="punch1">"Você não falta talento. Você falta combustível — e combustível se chama execução."</p>
+      <h2 class="an-title">O arquiteto que só<br>faz <span class="hl">planta baixa</span></h2>
+      <p class="an-text">Ele sabe tudo sobre construção. Leu todos os livros. Tem as melhores plantas, as medidas certas, o projeto mais bonito que você já viu. <strong>Mas nunca quebrou o primeiro tijolo.</strong><br><br>Cada planta nova substituiu a anterior. Cada revisão adiou o começo. <strong>A obra mais perfeita é a que existe, não a que está no papel.</strong></p>
+      <p class="an-punch" id="punch1">"Você não falta projeto. Você falta o primeiro tijolo — e ele só existe com a mão na massa."</p>
       <div class="tts-bar" style="margin-top:1.5rem;">
-        <button class="tts-btn" onclick="speak('carro')">▶</button>
+        <button class="tts-btn" onclick="speak('arquiteto')">▶</button>
         <button class="tts-btn stop" onclick="stopSpeak()">■</button>
-        <span class="tts-lbl">OUVIR</span>
-        <div class="wave" id="w-carro"><span></span><span></span><span></span><span></span></div>
+        <span class="tts-lbl">Ouvir</span>
+        <div class="wave" id="w-arquiteto"><span></span><span></span><span></span><span></span></div>
       </div>
     </div>
   </div>
 
+  <!-- ANALOGIA 2: O AVIÃO -->
   <div class="analogia" data-obs>
     <div style="display:flex;justify-content:center;align-items:center;">
       <div class="sym-wrap">
@@ -294,12 +423,13 @@ footer{border-top:1px solid rgba(26,86,219,.12);padding:1.8rem 10vw;display:flex
       <div class="tts-bar" style="margin-top:1.5rem;">
         <button class="tts-btn" onclick="speak('aviao')">▶</button>
         <button class="tts-btn stop" onclick="stopSpeak()">■</button>
-        <span class="tts-lbl">OUVIR</span>
+        <span class="tts-lbl">Ouvir</span>
         <div class="wave" id="w-aviao"><span></span><span></span><span></span><span></span></div>
       </div>
     </div>
   </div>
 
+  <!-- ANALOGIA 3: A SEMENTE -->
   <div class="analogia" data-obs>
     <div style="display:flex;justify-content:center;align-items:center;">
       <div class="sym-wrap">
@@ -319,7 +449,7 @@ footer{border-top:1px solid rgba(26,86,219,.12);padding:1.8rem 10vw;display:flex
       <div class="tts-bar" style="margin-top:1.5rem;">
         <button class="tts-btn" onclick="speak('semente')">▶</button>
         <button class="tts-btn stop" onclick="stopSpeak()">■</button>
-        <span class="tts-lbl">OUVIR</span>
+        <span class="tts-lbl">Ouvir</span>
         <div class="wave" id="w-semente"><span></span><span></span><span></span><span></span></div>
       </div>
     </div>
@@ -330,7 +460,7 @@ footer{border-top:1px solid rgba(26,86,219,.12);padding:1.8rem 10vw;display:flex
 <!-- ===== EXERCÍCIO ===== -->
 <section class="exercicio" data-obs>
   <div class="ex-header">
-    <p class="ex-tag">EXERCÍCIO DE ESCRITA — 3 MINUTOS</p>
+    <p class="ex-tag">Exercício de Escrita — 3 Minutos</p>
     <h2 class="ex-title">Agora é <em>a sua vez</em><br>de escrever.</h2>
     <p class="ex-sub" id="exSub">Escreva sem pensar. Sem censurar. A primeira coisa que vier — é exatamente essa que importa.</p>
   </div>
@@ -339,7 +469,7 @@ footer{border-top:1px solid rgba(26,86,219,.12);padding:1.8rem 10vw;display:flex
     <div class="tts-bar" style="display:inline-flex;">
       <button class="tts-btn" onclick="speak('instrucao')">▶</button>
       <button class="tts-btn stop" onclick="stopSpeak()">■</button>
-      <span class="tts-lbl">OUVIR INSTRUÇÃO</span>
+      <span class="tts-lbl">Ouvir instrução</span>
       <div class="wave" id="w-instrucao"><span></span><span></span><span></span><span></span></div>
     </div>
   </div>
@@ -349,69 +479,69 @@ footer{border-top:1px solid rgba(26,86,219,.12);padding:1.8rem 10vw;display:flex
   <div class="ex-cards">
 
     <div class="ex-card">
-      <p class="ex-card-num">PERGUNTA 01 &nbsp;·&nbsp; O CARRO</p>
-      <p class="ex-card-q" id="q1">"Qual é o seu carro parado na garagem agora?"</p>
-      <p class="ex-card-hint">O projeto, a ideia, o sonho, o passo que você fica admirando mas não executa. Escreva sem julgamento.</p>
+      <p class="ex-card-num">Pergunta 01 &nbsp;·&nbsp; O Arquiteto</p>
+      <p class="ex-card-q" id="q1">"Qual é a sua planta baixa favorita — aquela ideia perfeita que você ainda não colocou o primeiro tijolo?"</p>
+      <p class="ex-card-hint">O projeto, o produto, o serviço, o conteúdo que você sabe exatamente como fazer — mas ainda não começou. Escreva sem julgamento.</p>
       <textarea class="ex-textarea" id="r1" placeholder="Escreva aqui..."></textarea>
       <div class="ex-actions">
-        <button class="btn-voz" onclick="lerResposta('r1','q1')">🔊 &nbsp;LER EM VOZ ALTA</button>
+        <button class="btn-voz" onclick="lerResposta('r1','q1')">🔊 &nbsp;Ler em voz alta</button>
         <button class="btn-clear" onclick="limpar('r1')">✕ limpar</button>
       </div>
     </div>
 
     <div class="ex-card">
-      <p class="ex-card-num">PERGUNTA 02 &nbsp;·&nbsp; O AVIÃO</p>
+      <p class="ex-card-num">Pergunta 02 &nbsp;·&nbsp; O Avião</p>
       <p class="ex-card-q" id="q2">"Você está na decolagem ou desistiu antes de sair do chão?"</p>
       <p class="ex-card-hint">Seja honesto. Não existe resposta errada. Descreva onde você está agora — em 2 frases.</p>
       <textarea class="ex-textarea" id="r2" placeholder="Escreva aqui..."></textarea>
       <div class="ex-actions">
-        <button class="btn-voz" onclick="lerResposta('r2','q2')">🔊 &nbsp;LER EM VOZ ALTA</button>
+        <button class="btn-voz" onclick="lerResposta('r2','q2')">🔊 &nbsp;Ler em voz alta</button>
         <button class="btn-clear" onclick="limpar('r2')">✕ limpar</button>
       </div>
     </div>
 
     <div class="ex-card">
-      <p class="ex-card-num">PERGUNTA 03 &nbsp;·&nbsp; A SEMENTE</p>
+      <p class="ex-card-num">Pergunta 03 &nbsp;·&nbsp; A Semente</p>
       <p class="ex-card-q" id="q3">"Qual semente você parou de regar essa semana — e o que muda na segunda-feira?"</p>
       <p class="ex-card-hint">Uma ação concreta. Uma decisão real. Escreva como um compromisso com você mesmo.</p>
       <textarea class="ex-textarea" id="r3" placeholder="Escreva aqui..."></textarea>
       <div class="ex-actions">
-        <button class="btn-voz" onclick="lerResposta('r3','q3')">🔊 &nbsp;LER EM VOZ ALTA</button>
+        <button class="btn-voz" onclick="lerResposta('r3','q3')">🔊 &nbsp;Ler em voz alta</button>
         <button class="btn-clear" onclick="limpar('r3')">✕ limpar</button>
       </div>
     </div>
 
   </div>
 
-  <button class="ex-start-btn" onclick="startTimer()">⏱ &nbsp;INICIAR TEMPORIZADOR DE 3 MIN</button>
+  <button class="ex-start-btn" onclick="startTimer()">⏱ &nbsp;Iniciar temporizador de 3 min</button>
 </section>
 
 <!-- ===== FECHAMENTO ===== -->
 <section class="fechamento" data-obs>
-  <p class="fec-tag" id="fecTag">BOA SEXTA-FEIRA</p>
+  <p class="fec-tag" id="fecTag">Boa Sexta-Feira</p>
   <h2 class="fec-title" id="fecTitle"><em>Qualquer pessoa</em> pode vender<br>o que sabe.</h2>
   <div class="fec-divider"></div>
   <p class="fec-body" id="fecBody">Você chegou até aqui numa sexta à tarde. Fez a aula. Escreveu. Refletiu. Isso já diz tudo sobre quem você é.<br><br>A semente não para de crescer — mesmo no fim de semana. Mesmo quando você não está olhando.</p>
-  <div class="tts-bar" style="margin-bottom:2.5rem;">
+  <div class="tts-bar" style="margin-bottom:2.5rem;background:rgba(245,240,232,.08);border-color:rgba(245,240,232,.15);">
     <button class="tts-btn" onclick="speak('fechamento')">▶</button>
     <button class="tts-btn stop" onclick="stopSpeak()">■</button>
-    <span class="tts-lbl">OUVIR FECHAMENTO</span>
+    <span class="tts-lbl" style="color:rgba(245,240,232,.6);">Ouvir fechamento</span>
     <div class="wave" id="w-fechamento"><span></span><span></span><span></span><span></span></div>
   </div>
-  <p class="fec-final">"O carro está pronto. A gasolina é você."</p>
+  <p class="fec-final">"O projeto está pronto. O tijolo é você."</p>
   <div class="fec-line"></div>
-  <p class="fec-spark">PROTOCOLO AGENDA CHEIA &nbsp;·&nbsp; ACREDITE NO PROCESSO</p>
+  <p class="fec-spark">Protocolo Agenda Cheia &nbsp;·&nbsp; Acredite no Processo</p>
 </section>
 
 <!-- ===== DOWNLOAD ===== -->
 <div class="dl-section">
-  <p class="dl-tag">LEVE COM VOCÊ</p>
+  <p class="dl-tag">Leve com você</p>
   <h3 class="dl-title">Baixe seu resumo com<br><em>suas respostas incluídas</em></h3>
-  <button class="dl-btn" onclick="download()">⬇ &nbsp;BAIXAR MEU RESUMO PERSONALIZADO</button>
+  <button class="dl-btn" onclick="download()">⬇ &nbsp;Baixar meu resumo personalizado</button>
 </div>
 
 <footer>
-  <span>PROTOCOLO AGENDA CHEIA</span>
+  <span>Protocolo Agenda Cheia</span>
   <span id="ftMeta">Módulo 1 · Aula 2 — Expectativas</span>
   <span>© 2025</span>
 </footer>
@@ -437,41 +567,59 @@ async function enter(){
   U.name=raw.charAt(0).toUpperCase()+raw.slice(1).toLowerCase();
   const btn=document.getElementById('enterBtn');
   btn.textContent='Entrando ✦'; btn.disabled=true;
-  // Fallback local para hora/data caso APIs demorem
+
+  // Fallback local imediato
   const dt=new Date();
   U.hora=dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
   U.data=dt.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
-  // Timeout helper — máx 2.5s por API, nunca trava
-  const withTimeout = (p, ms=2500) => Promise.race([p, new Promise(r=>setTimeout(r,ms))]);
+
+  const withTimeout=(p,ms=2800)=>Promise.race([p,new Promise(r=>setTimeout(r,ms))]);
   await Promise.all([
     withTimeout(fetchGeo()),
     withTimeout(fetchTime()),
     withTimeout(fetchQuote()),
   ]);
-  withTimeout(fetchWeather()); // fire-and-forget, não bloqueia entrada
+  withTimeout(fetchWeather()); // fire-and-forget
+
   buildPage();
-  document.getElementById('gate').style.display='none';
+  const gate=document.getElementById('gate');
+  gate.classList.add('saindo');
+  setTimeout(()=>gate.style.display='none',600);
   document.getElementById('topbar').style.display='flex';
-  setTimeout(()=>speak('hero'),800);
+  setTimeout(()=>speak('hero'),900);
 }
 
-// ── API 1: ipapi.co — IP + geo ──
+// ── GEO: API 1 ipapi.co ──
 async function fetchGeo(){
   try{
-    const r=await fetch('https://ipapi.co/json/',{signal:AbortSignal.timeout(2000)});
+    const r=await fetch('https://ipapi.co/json/',{signal:AbortSignal.timeout(2500)});
     const d=await r.json();
-    U.ip=d.ip||'—'; U.city=d.city||'—'; U.state=d.region||'—';
-    U.country=d.country_name||'Brasil'; U.lat=d.latitude||'—';
-    U.lng=d.longitude||'—'; U.isp=d.org||'—';
-    U.tz=d.timezone||'—'; U.moeda=d.currency||'—';
-  }catch(e){console.warn('geo fail');}
+    if(d && !d.error){
+      U.ip=d.ip||'—'; U.city=d.city||''; U.state=d.region||'';
+      U.country=d.country_name||'Brasil';
+      U.lat=d.latitude||'—'; U.lng=d.longitude||'—';
+      U.isp=d.org||'—'; U.tz=d.timezone||'—'; U.moeda=d.currency||'—';
+      return;
+    }
+  }catch(e){}
+  // API 2 fallback: ip-api.com
+  try{
+    const r=await fetch('http://ip-api.com/json/?fields=status,city,regionName,country,lat,lon,timezone,isp,query',{signal:AbortSignal.timeout(2500)});
+    const d=await r.json();
+    if(d && d.status==='success'){
+      U.ip=d.query||'—'; U.city=d.city||''; U.state=d.regionName||'';
+      U.country=d.country||'Brasil';
+      U.lat=d.lat||'—'; U.lng=d.lon||'—';
+      U.isp=d.isp||'—'; U.tz=d.timezone||'—';
+    }
+  }catch(e){}
 }
 
-// ── API 2: worldtimeapi.org — hora real ──
+// ── HORA REAL ──
 async function fetchTime(){
   try{
     const tz=U.tz||'America/Sao_Paulo';
-    const r=await fetch(`https://worldtimeapi.org/api/timezone/${tz}`,{signal:AbortSignal.timeout(2000)});
+    const r=await fetch(`https://worldtimeapi.org/api/timezone/${tz}`,{signal:AbortSignal.timeout(2500)});
     const d=await r.json();
     const dt=new Date(d.datetime);
     U.hora=dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
@@ -483,30 +631,31 @@ async function fetchTime(){
   }
 }
 
-// ── API 3: quotable.io — frase motivacional ──
+// ── FRASE ──
 async function fetchQuote(){
   try{
-    const r=await fetch('https://api.quotable.io/random?tags=success|motivational|mindset&maxLength=120',{signal:AbortSignal.timeout(2000)});
+    const r=await fetch('https://api.quotable.io/random?tags=success|motivational|mindset&maxLength=120',{signal:AbortSignal.timeout(2500)});
     const d=await r.json();
     if(d.content) U.quote=`"${d.content}" — ${d.author}`;
   }catch(e){
-    U.quote='"A ação é o combustível da transformação. Sem ela, todo talento fica parado na garagem." — Protocolo Agenda Cheia';
+    U.quote='"A ação é o combustível da transformação. Sem ela, o projeto mais perfeito fica no papel." — Protocolo Agenda Cheia';
   }
 }
 
-// ── API 4: Open-Meteo — clima gratuito (sem key) ──
+// ── CLIMA ──
 async function fetchWeather(){
   if(U.lat==='—') return;
   try{
-    const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${U.lat}&longitude=${U.lng}&current_weather=true&timezone=auto`,{signal:AbortSignal.timeout(2000)});
+    const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${U.lat}&longitude=${U.lng}&current_weather=true&timezone=auto`,{signal:AbortSignal.timeout(2500)});
     const d=await r.json();
     if(d.current_weather){
-      const code=d.current_weather.weathercode;
       const temp=Math.round(d.current_weather.temperature);
-      const desc=wCode(code);
-      U.clima=`${temp}°C · ${desc}`;
+      U.clima=`${temp}°C · ${wCode(d.current_weather.weathercode)}`;
+      // Atualiza topbar com clima após carregar
+      const loc=getLoc();
+      document.getElementById('tb-weather').textContent=`${loc} · ${U.clima}`;
     }
-  }catch(e){console.warn('weather fail');}
+  }catch(e){}
 }
 
 function wCode(c){
@@ -519,16 +668,42 @@ function wCode(c){
   return 'Tempestade ⛈️';
 }
 
-// ── API 5: dictionaryapi fallback pronúncia (voz nativa) ──
-// Usado implicitamente pelo TTS — voz pt-BR via SpeechSynthesis
-
 function getHoraPart(){
   const h=new Date().getHours();
   if(h>=5&&h<12) return 'bom dia';
   if(h>=12&&h<18) return 'boa tarde';
   return 'boa noite';
 }
-function getLoc(){return U.city!=='—'?`${U.city}, ${U.state}`:U.country;}
+
+// ── getLoc: NUNCA retorna "—, —" ──
+function getLoc(){
+  if(U.city && U.city!=='—' && U.state && U.state!=='—') return `${U.city}, ${U.state}`;
+  if(U.city && U.city!=='—') return U.city;
+  if(U.state && U.state!=='—') return U.state;
+  return U.country||'Brasil';
+}
+
+// ── DIA DA SEMANA DINÂMICO ──
+const DIAS=['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+function getDiaSemana(){
+  const dt=new Date();
+  return DIAS[dt.getDay()];
+}
+function getDiaCapital(){
+  const d=getDiaSemana();
+  return d.charAt(0).toUpperCase()+d.slice(1);
+}
+
+// Preenche gate e hero ANTES do nome (ao carregar)
+(function initDia(){
+  const dia=getDiaCapital();
+  const el=document.getElementById('gateDia');
+  if(el) el.textContent=dia;
+  const hd=document.getElementById('heroDiaSemana');
+  if(hd) hd.textContent=dia+'.';
+  const ht=document.getElementById('heroTag');
+  if(ht) ht.textContent='Protocolo Agenda Cheia · Módulo 1 · '+dia;
+})();
 
 // ── BUILD PAGE ──
 function buildPage(){
@@ -537,50 +712,55 @@ function buildPage(){
 
   // topbar
   document.getElementById('tb-name').textContent=`✦  ${U.name}`;
-  document.getElementById('tb-weather').textContent=U.clima!=='—'?`${loc} · ${U.clima}`:`${loc}`;
-  document.getElementById('tb-meta').textContent=`${U.hora}  ·  IP ${U.ip}  ·  ${U.isp}`;
+  document.getElementById('tb-weather').textContent=`${loc}`;
+  document.getElementById('tb-meta').textContent=`${U.hora}  ·  ${U.data}`;
 
-  // hero
+  // hero — NUNCA mostra "de , ,"
   document.getElementById('heroDate').textContent=U.data;
+  // Dia da semana via data real da API
+  const diaReal=(()=>{
+    try{const d=new Date(U.data.replace(/^(\w+-feira|\w+),\s*/,''));if(!isNaN(d.getTime()))return DIAS[d.getDay()];}catch(e){}
+    return getDiaSemana();
+  })();
+  const diaCapR=diaReal.charAt(0).toUpperCase()+diaReal.slice(1);
+  document.getElementById('heroDiaSemana').textContent=diaCapR+'.';
+  document.getElementById('gateDia').textContent=diaCapR;
+  document.getElementById('heroTag').textContent='Protocolo Agenda Cheia · Módulo 1 · '+diaCapR;
   document.getElementById('heroGreeting').innerHTML=
-    `<span class="name-g">${saud}, ${U.name}.</span> Aqui de ${loc}, você chegou até essa sexta com duas aulas concluídas. Antes de fechar tudo — tem algo que só você pode escrever.`;
+    `<span class="name-g">${saud}, ${U.name}.</span> Aqui de ${loc} — às ${U.hora} de uma sexta-feira — você completou duas aulas. Antes de fechar tudo, tem algo que só você pode escrever.`;
   document.getElementById('heroQuote').textContent=U.quote;
 
   // punch personalizado
   document.getElementById('punch1').textContent=
-    `"${U.name}, você não falta talento. Você falta combustível — e combustível se chama execução."`;
+    `"${U.name}, você não falta projeto. Você falta o primeiro tijolo — e ele só existe com a mão na massa."`;
 
-  // timeline
-  document.getElementById('tlNow').textContent=`Exercício · ${U.name}`;
 
   // exercício
   document.getElementById('exSub').textContent=
-    `${U.name}, escreva sem pensar. Sem censurar. Aqui em ${loc}, nessa sexta à ${U.hora.split(':')[0]}h — a primeira coisa que vier é exatamente essa que importa.`;
-  document.getElementById('q1').textContent=`"${U.name}, qual é o seu carro parado na garagem agora?"`;
+    `${U.name}, escreva sem censurar. Aqui em ${loc}, às ${U.hora} desta sexta — a primeira coisa que vier é exatamente a que importa.`;
+  document.getElementById('q1').textContent=`"${U.name}, qual é a sua planta baixa favorita — aquela ideia perfeita que você ainda não colocou o primeiro tijolo?"`;
   document.getElementById('q2').textContent=`"${U.name}, você está na decolagem ou desistiu antes de sair do chão?"`;
   document.getElementById('q3').textContent=`"Qual semente você parou de regar essa semana, ${U.name}? O que muda na segunda-feira?"`;
 
   // fechamento
-  document.getElementById('fecTag').textContent=`BOA SEXTA, ${U.name.toUpperCase()} — ${loc.toUpperCase()}`;
+  document.getElementById('fecTag').textContent=`Boa sexta, ${U.name} — ${loc}`;
   document.getElementById('fecTitle').innerHTML=`<em>Você fez a diferença</em><br>nessa semana.`;
   document.getElementById('fecBody').innerHTML=
-    `<strong>${U.name}</strong>, você chegou até aqui numa sexta à tarde${U.clima!=='—'?' com '+U.clima.toLowerCase()+' em '+U.city:''}. Fez a aula. Escreveu. Refletiu.<br><br>
-    Isso já diz tudo sobre quem você é. A semente não para de crescer — mesmo no fim de semana. Mesmo quando você não está olhando.<br><br>
-    Bom descanso. A segunda-feira agradece.`;
+    `<strong>${U.name}</strong>, você chegou até aqui numa sexta às ${U.hora}${U.clima!=='—'?' · '+U.clima+' em '+loc:' em '+loc}. Fez a aula. Escreveu. Refletiu.<br><br>Isso já diz tudo sobre quem você é. A semente não para de crescer — mesmo no fim de semana. Mesmo quando você não está olhando.<br><br>Bom descanso. A segunda-feira agradece.`;
 
   // footer
-  document.getElementById('ftMeta').textContent=`Módulo 1 · Acessado por ${U.name} às ${U.hora}`;
+  document.getElementById('ftMeta').textContent=`Módulo 1 · Acessado por ${U.name} às ${U.hora} · ${loc}`;
 }
 
-// ── TTS ──
+// ── TTS SCRIPTS ──
 const scripts={
-  hero:()=>`${getHoraPart()}, ${U.name}! Aqui de ${getLoc()}, você chegou até essa sexta com duas aulas concluídas. Sabe o que isso significa? Que enquanto a maioria deixou para depois, você veio. Antes de fechar tudo — tem algo que só você pode escrever.`,
-  semana:()=>`${U.name}, essa semana você concluiu os fundamentos e chegou até a Aula 2 de Expectativas. Duas aulas dadas. Cada um deles foi combustível. Na segunda-feira, Estratégia e Posicionamento te espera — e você já sabe como decolar.`,
-  carro:()=>`Exemplo um. O carro. ${U.name}, você tem o melhor carro do mundo. Motor potente, GPS, banco de couro. Mas não coloca gasolina. Gira a chave. Nada. E começa a achar que o carro é ruim. Que não era pra você. O problema nunca foi o carro, ${U.name}. Era só a gasolina. Expectativa é o carro. Ação é a gasolina. Sem ela, a expectativa mais perfeita fica parada — linda, imóvel, inútil. Você não falta talento. Você falta combustível. E combustível se chama execução.`,
+  hero:()=>`${getHoraPart()}, ${U.name}! Aqui de ${getLoc()}, às ${U.hora} de uma sexta-feira — você completou duas aulas. Sabe o que isso significa? Que enquanto a maioria adiou para depois, você veio. Antes de fechar o computador, tem algo que só você pode escrever.`,
+  semana:()=>`${U.name}, essa semana você concluiu os fundamentos e chegou até a Aula 2 de Expectativas. Duas aulas. Cada uma foi um tijolo a mais na sua obra. Na segunda-feira, Estratégia e Posicionamento te espera — e você já sabe como decolar.`,
+  arquiteto:()=>`Exemplo um. O arquiteto. ${U.name}, ele sabe tudo sobre construção. Leu todos os livros. Tem as melhores plantas, as medidas certas, o projeto mais bonito que você já viu. Mas nunca quebrou o primeiro tijolo. Cada planta nova substituiu a anterior. Cada revisão adiou o começo. A obra mais perfeita é a que existe, não a que está no papel. ${U.name}, você não falta projeto. Você falta o primeiro tijolo — e ele só existe com a mão na massa.`,
   aviao:()=>`Exemplo dois. O avião. Um avião consome oitenta por cento do combustível antes de cruzar as nuvens. O início é sempre o mais pesado, ${U.name}. O mais difícil. O que mais exige de você. A maioria desiste exatamente nesse momento. Segundos antes de sair do chão. Não porque não eram capazes. Porque perderam a referência de tempo. O processo não é lento. A sua referência de tempo é que estava errada.`,
   semente:()=>`Exemplo três. A semente. Você planta, ${U.name}, rega uma vez, e fica na janela esperando a árvore. No segundo dia sem resultado, conclui que a terra é ruim. A semente não falhou. Você parou de regar. Toda transformação que durou na sua vida, você não percebeu acontecendo. Foi só quando olhou para trás que viu o quanto havia mudado. Resultado não tem prazo. Tem profundidade.`,
   instrucao:()=>`${U.name}, agora é a sua vez. Você tem três minutos. Escreve sem pensar, sem censurar. A primeira coisa que vier — é exatamente essa que importa. Quando terminar, clica em ler em voz alta — e ouça a sua própria voz dizendo o que você escreveu. Esse é o exercício mais poderoso que você vai fazer hoje.`,
-  fechamento:()=>`${U.name}, de ${getLoc()}. Você chegou até aqui numa sexta à tarde${U.clima!=='—'?' com '+U.clima.toLowerCase()+' na sua cidade':''}. Fez a aula. Escreveu. Refletiu. Isso já diz tudo sobre quem você é. A semente não para de crescer — mesmo no fim de semana. Mesmo quando você não está olhando. Bom descanso, ${U.name}. A segunda-feira agradece. O carro está pronto. A gasolina é você.`,
+  fechamento:()=>`${U.name}, de ${getLoc()}. Você chegou até aqui numa sexta às ${U.hora}${U.clima!=='—'?' com '+U.clima.toLowerCase()+' na sua cidade':''}. Fez a aula. Escreveu. Refletiu. Isso já diz tudo sobre quem você é. A semente não para de crescer — mesmo no fim de semana. Mesmo quando você não está olhando. Bom descanso, ${U.name}. A segunda-feira agradece. O projeto está pronto. O tijolo é você.`,
 };
 
 function stopSpeak(){
@@ -591,7 +771,7 @@ function stopSpeak(){
 function speak(key){
   if(!window.speechSynthesis){alert('Seu navegador não suporta TTS.');return;}
   stopSpeak();
-  if(!U.name){return;}
+  if(!U.name) return;
   const text=scripts[key]();
   const wave=document.getElementById('w-'+key);
   const utt=new SpeechSynthesisUtterance(text);
@@ -607,11 +787,9 @@ function speak(key){
 
 function lerResposta(rid,qid){
   const resp=document.getElementById(rid).value.trim();
-  const qText=document.getElementById(qid).textContent;
   if(!resp){alert('Escreva algo primeiro!');return;}
   stopSpeak();
-  const full=`Você escreveu: ${resp}`;
-  const utt=new SpeechSynthesisUtterance(full);
+  const utt=new SpeechSynthesisUtterance(`Você escreveu: ${resp}`);
   utt.lang='pt-BR'; utt.rate=0.88; utt.pitch=1.08;
   const voices=window.speechSynthesis.getVoices();
   const v=voices.find(x=>x.lang.startsWith('pt-BR'))||voices.find(x=>x.lang.startsWith('pt'));
@@ -620,7 +798,6 @@ function lerResposta(rid,qid){
 }
 
 function limpar(id){document.getElementById(id).value='';}
-
 if(window.speechSynthesis) window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices();
 
 // ── TIMER ──
@@ -628,7 +805,7 @@ let timerInt=null;
 function startTimer(){
   if(timerInt) return;
   const el=document.getElementById('exTimer');
-  el.style.display='block';
+  el.style.display='block'; el.style.color='var(--gold)';
   let s=180;
   el.textContent='03:00';
   timerInt=setInterval(()=>{
@@ -668,42 +845,41 @@ function download(){
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Resumo Spark — ${U.name}</title>
+<title>Resumo — ${U.name}</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Libre+Franklin:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Libre Franklin',sans-serif;font-weight:300;color:#0a1628;background:#fff;padding:5rem 6rem;max-width:800px;margin:auto;}
-.hd{border-bottom:3px solid #0a1628;padding-bottom:2rem;margin-bottom:3rem;}
-.tag{font-size:.58rem;letter-spacing:.35em;color:#f59e0b;font-weight:700;margin-bottom:1rem;}
+body{font-family:'Libre Franklin',sans-serif;font-weight:300;color:#1C1610;background:#F5F0E8;padding:5rem 6rem;max-width:800px;margin:auto;}
+.hd{border-bottom:2px solid #1C1610;padding-bottom:2rem;margin-bottom:3rem;}
+.tag{font-size:.58rem;letter-spacing:.35em;color:#B8860B;font-weight:700;margin-bottom:1rem;text-transform:uppercase;}
 h1{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;line-height:1.2;}
-h1 em{color:#f59e0b;font-style:italic;}
-.meta{margin-top:1.5rem;font-size:.72rem;color:#6b7280;line-height:2.2;border-left:3px solid #f59e0b;padding-left:1rem;}
-.meta strong{color:#0a1628;}
+h1 em{color:#B8860B;font-style:italic;}
+.meta{margin-top:1.5rem;font-size:.72rem;color:#6B5E4E;line-height:2.2;border-left:3px solid #B8860B;padding-left:1rem;background:#F5E6C0;padding:1rem 1rem 1rem 1.2rem;border-radius:0 4px 4px 0;}
+.meta strong{color:#1C1610;}
 .sec{margin-bottom:3rem;}
-.num{font-family:'Cormorant Garamond',serif;font-size:4.5rem;font-weight:300;color:rgba(26,86,219,.08);line-height:1;margin-bottom:-1rem;}
+.num{font-family:'Cormorant Garamond',serif;font-size:4.5rem;font-weight:300;color:rgba(184,134,11,.09);line-height:1;margin-bottom:-1rem;}
 h2{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:600;margin-bottom:1rem;}
-h2 span{color:#f59e0b;font-style:italic;}
-p{font-size:.92rem;line-height:2;color:#374151;margin-bottom:.8rem;}
-.punch{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:#1a56db;border-left:3px solid #f59e0b;padding:.5rem 1rem;margin:1.2rem 0;background:#f0f6ff;}
-.ex-sec{background:#0a1628;color:#fff;padding:3rem;margin-top:3rem;border-radius:2px;}
-.ex-sec h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;margin-bottom:2rem;color:#f59e0b;}
-.ex-item{margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(147,197,253,.15);}
+h2 span{color:#B8860B;font-style:italic;}
+p{font-size:.92rem;line-height:2;color:#3D3529;margin-bottom:.8rem;}
+.punch{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:#1A3A6B;border-left:3px solid #B8860B;padding:.6rem 1rem;margin:1.2rem 0;background:#EDE7DA;}
+.ex-sec{background:#1C1610;color:#F5F0E8;padding:3rem;margin-top:3rem;border-radius:4px;}
+.ex-sec h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;margin-bottom:2rem;color:#B8860B;}
+.ex-item{margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(245,240,232,.12);}
 .ex-item:last-child{border-bottom:none;margin-bottom:0;}
-.ex-q{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:#dbeafe;margin-bottom:.8rem;}
-.ex-r{font-size:.9rem;line-height:1.9;color:#93c5fd;background:rgba(255,255,255,.05);padding:1rem;border-radius:2px;border-left:2px solid #f59e0b;}
-.footer-d{margin-top:2.5rem;font-size:.62rem;color:#9ca3af;border-top:1px solid #e5e7eb;padding-top:1rem;line-height:2;}
+.ex-q{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:#EDE7DA;margin-bottom:.8rem;}
+.ex-r{font-size:.9rem;line-height:1.9;color:#B8860B;background:rgba(255,255,255,.05);padding:1rem;border-radius:2px;border-left:2px solid #B8860B;}
+.footer-d{margin-top:2.5rem;font-size:.62rem;color:#9C8B77;border-top:1px solid #EDE7DA;padding-top:1rem;line-height:2;}
 @media print{body{padding:2rem 3rem;}}
 </style>
 </head>
 <body>
 <div class="hd">
-<p class="tag">PROTOCOLO AGENDA CHEIA &nbsp;·&nbsp; MÓDULO 1 &nbsp;·&nbsp; RESUMO + EXERCÍCIO</p>
+<p class="tag">Protocolo Agenda Cheia &nbsp;·&nbsp; Módulo 1 &nbsp;·&nbsp; Resumo + Exercício</p>
 <h1>Expectativas:<br>o <em>combustível</em><br>que ninguém te ensinou.</h1>
 <div class="meta">
 <strong>Aluno(a):</strong> ${U.name}<br>
 <strong>Local:</strong> ${loc} · ${U.country}<br>
-<strong>Clima:</strong> ${U.clima}<br>
-<strong>Coordenadas:</strong> ${U.lat}, ${U.lng}<br>
+<strong>Clima:</strong> ${U.clima!=='—'?U.clima:'Não disponível'}<br>
 <strong>IP:</strong> ${U.ip} · <strong>Provedor:</strong> ${U.isp}<br>
 <strong>Fuso:</strong> ${U.tz} · <strong>Moeda:</strong> ${U.moeda}<br>
 <strong>Data de acesso:</strong> ${U.data} às ${U.hora}
@@ -711,26 +887,26 @@ p{font-size:.92rem;line-height:2;color:#374151;margin-bottom:.8rem;}
 </div>
 <div class="sec">
 <div class="num">01</div>
-<h2>O carro que nunca saiu da <span>garagem</span></h2>
-<p>Motor potente, GPS, banco de couro — mas sem gasolina. <strong>Expectativa é o carro. Ação é a gasolina.</strong> Sem ela, a expectativa mais perfeita fica parada — linda, imóvel, inútil.</p>
-<p class="punch">"${U.name}, você não falta talento. Você falta combustível — e combustível se chama execução."</p>
+<h2>O arquiteto que só faz <span>planta baixa</span></h2>
+<p>Planos perfeitos, projetos impecáveis — mas nenhum tijolo quebrado. <strong>A obra mais perfeita é a que existe, não a que está no papel.</strong></p>
+<p class="punch">"${U.name}, você não falta projeto. Você falta o primeiro tijolo — e ele só existe com a mão na massa."</p>
 </div>
 <div class="sec">
 <div class="num">02</div>
 <h2>O avião usa tudo na <span>decolagem</span></h2>
-<p>Um avião consome 80% do combustível antes de cruzar as nuvens. A maioria desiste <strong>segundos antes de sair do chão</strong> — não porque não eram capazes, mas porque perderam a referência de tempo.</p>
+<p>Um avião consome 80% do combustível antes de cruzar as nuvens. A maioria desiste <strong>segundos antes de sair do chão</strong>.</p>
 <p class="punch">"O processo não é lento. A sua referência de tempo é que estava errada."</p>
 </div>
 <div class="sec">
 <div class="num">03</div>
 <h2>A semente que você parou de <span>regar</span></h2>
-<p>Você planta, rega uma vez, fica na janela. <strong>A semente não falhou. Você parou de regar.</strong> Toda transformação que durou, você não percebeu acontecendo.</p>
+<p>Você planta, rega uma vez, fica na janela. <strong>A semente não falhou. Você parou de regar.</strong></p>
 <p class="punch">"Resultado não tem prazo. Tem profundidade."</p>
 </div>
 <div class="ex-sec">
 <h2>✍️ Seu Exercício — ${U.name}</h2>
 <div class="ex-item">
-<p class="ex-q">"${U.name}, qual é o seu carro parado na garagem agora?"</p>
+<p class="ex-q">"${U.name}, qual é a sua planta baixa favorita — aquela ideia perfeita que você ainda não colocou o primeiro tijolo?"</p>
 <div class="ex-r">${r1}</div>
 </div>
 <div class="ex-item">
@@ -738,7 +914,7 @@ p{font-size:.92rem;line-height:2;color:#374151;margin-bottom:.8rem;}
 <div class="ex-r">${r2}</div>
 </div>
 <div class="ex-item">
-<p class="ex-q">"Qual semente você parou de regar essa semana, ${U.name}? O que muda na segunda?"</p>
+<p class="ex-q">"Qual semente você parou de regar essa semana, ${U.name}? O que muda na segunda-feira?"</p>
 <div class="ex-r">${r3}</div>
 </div>
 </div>
@@ -751,7 +927,7 @@ Documento gerado para <strong>${U.name}</strong> · ${U.data} às ${U.hora} · $
   const blob=new Blob([html],{type:'text/html;charset=utf-8'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
-  a.href=url; a.download=`Spark-Mod2-${U.name}.html`;
+  a.href=url; a.download=`PAC-Mod1-${U.name}.html`;
   document.body.appendChild(a); a.click();
   document.body.removeChild(a); URL.revokeObjectURL(url);
 }
